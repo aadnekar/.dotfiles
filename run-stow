@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+# export STOW_FOLDERS="nvim"
+
+# for folder in $(echo &STOW_FOLDERS | sed "s/,/ /g")
+# do
+    echo "stow nvim"
+    stow -D nvim
+    stow nvim
+# done
+
+
