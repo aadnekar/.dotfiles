@@ -48,6 +48,9 @@ let mapleader = " "
 """ Source the init.vim file to get latest changes
 nnoremap <leader><cr> :so ~/.config/nvim/init.vim<cr>
 
+""" New tmux session, with name of folder.
+nnoremap <silent> <C-f> :silent !tmux neww tmux-sessionizer<cr>
+
 """ Project View - Open vertically on left side.
 nnoremap <leader>pv :Vex<cr>
 

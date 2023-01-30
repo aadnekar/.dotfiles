@@ -13,8 +13,6 @@ export PATH="$DENO_INSTALL:$HOME_BIN:$PATH"
 export PATH=$PATH:$HOME/gn
 export PATH=$PATH:~/.local/bin
 
-export PATH=$PATH:$HOME/.scripts
-
 export LauncherWorkspace="$HOME/code/pc-nrfconnect-launcher"
 
 # Adds fuzzy findiner tool fzf
