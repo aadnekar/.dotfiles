@@ -18,13 +18,12 @@ export LauncherWorkspace="$HOME/code/pc-nrfconnect-launcher"
 # Adds fuzzy findiner tool fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# ADD CUSTOM ALIASES HERE
+##### ADD CUSTOM ALIASES HERE #####
 alias bd="npm run build:dev"
 alias tw="npm t -- --watch"
 alias run="npm run app --prefix $LauncherWorkspace"
 alias gp="git pull"
 alias gs="git status"
-
 
 # Fuzzy find script to start new session in new folder
 bindkey -s ^f "tmux-sessionizer\n"

@@ -1,0 +1,15 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = aadnekar
+	email = aadne.karstad@gmail.com
+[core]
+    editor = vim
+[init]
+	defaultbranch = "main"
+[commit]
+	verbose = true
+[push]
+	default = current
+[pull]
+	rebase = true

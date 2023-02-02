@@ -1,0 +1,8 @@
+#!/bin/bash
+
+selected=''
+if [[ -z $selected ]]; then
+        echo '-z \$selected === true'
+else
+        echo '-z \$selected === true'
+fi

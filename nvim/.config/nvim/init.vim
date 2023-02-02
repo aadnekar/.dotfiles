@@ -1,9 +1,9 @@
 lang en_US.utf-8
-
-set scrolloff=12
+set scrolloff=20
 set relativenumber
 
 set tabstop=4
+set shiftwidth=4
 set softtabstop=4
 set expandtab
 set smartindent
@@ -29,7 +29,19 @@ Plug 'prettier/vim-prettier', {
   \ 'for': ['javascript', 'typescript', 'jsx', 'tsx', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 " Language Server Support
-Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" https://thoughtbot.com/blog/modern-typescript-and-react-development-in-vim
+" Plug 'peitalin/vim-jsx-typescript'
+" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+
+
+Plug 'pangloss/vim-javascript'    " JavaScript support
+Plug 'leafgarland/typescript-vim' " TypeScript syntax
+Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
+
+
+" Debugging
+Plug 'puremourning/vimspector'
 
 call plug#end()
 
@@ -54,8 +66,9 @@ nnoremap <silent> <C-f> :silent !tmux neww tmux-sessionizer<cr>
 """ Project View - Open vertically on left side.
 nnoremap <leader>pv :Vex<cr>
 
-""" Fuzzy find files for fzf
+""" Fuzzy find files for fz
 nnoremap <C-p> :GFiles<cr>
+nnoremap <C-a-p> :Files<cr>
 nnoremap <leader>pf :Files<cr>
 
 " Quickfix shortcuts
@@ -84,9 +97,34 @@ inoremap <C-s> <esc>:w<cr>
 
 """ Trigger formatting
 nnoremap <leader>P :Prettier<cr>
+" NeoFormat
+let g:neoformat_enabled_typescript = ['prettier']
 
-""" ALE specific 
-nnoremap <leader>d :ALEGoToDefinition<cr>
+""" CoC TS JS specific
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+else
+    inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+"Symbol rename
+nmap <F2> <Plug>(coc-rename)
+
+
+
+""" Debug mode
+nnoremap <silent> <f5> :silent :!npm run app:debug --prefix $LauncherWorkspace<cr>
 
 
 let g:ale_fixers = {
