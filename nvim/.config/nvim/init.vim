@@ -1,4 +1,4 @@
-lang en_US.utf-8
+lang en_US.utf8
 set scrolloff=20
 set relativenumber
 
@@ -7,6 +7,11 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 set smartindent
+
+
+""" Debug mode
+let g:vimspector_base_dir=expand( '$HOME/.vim/vimspector-config' )
+let g:vimspector_enable_mapping='HUMAN'
 
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -45,7 +50,7 @@ Plug 'puremourning/vimspector'
 
 call plug#end()
 
-set guifont=*
+"set guifont=*
 set termguicolors     " enable true colors support
 syntax enable
 "let ayucolor="dark"   " for dark version of theme
@@ -122,9 +127,24 @@ endif
 nmap <F2> <Plug>(coc-rename)
 
 
+""" WORK: BUILD APP DEV
+nnoremap  <leader>b :!npm run build:dev<cr>
 
-""" Debug mode
-nnoremap <silent> <f5> :silent :!npm run app:debug --prefix $LauncherWorkspace<cr>
+nnoremap <leader>dd :call vimspector#Launch()<cr>
+nnoremap <leader>dc :call vimspector#Continue()<cr>
+nnoremap <leader>dr :call vimspector#Reset()<cr>
+
+nnoremap <leader>dl :call vimspector#StepOver()<cr>
+nnoremap <leader>dj :call vimspector#StepInto()<cr>
+nnoremap <leader>dk :call vimspector#StepOut()<cr>
+
+nnoremap <Leader>dt :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <Leader>dT :call vimspector#ClearBreakpoints()<CR>
+
+nnoremap <silent> <F5> :silent !å-debugger<cr>
+
+nnoremap <silent> <leader>B :silent :!npm run build:dev --prefix $LauncherWorkspace && npm run app:debug --prefix $LauncherWorkspace<cr>
+
 
 
 let g:ale_fixers = {

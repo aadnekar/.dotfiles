@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+sessionName="Debugger"
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -c $LauncherWorkspace -s $sessionName
+    exit 0
+fi
+
+if tmux has-session -t=$sessionName 2> /dev/null; then
+    tmux kill-session -t $sessionName
+fi
+
+tmux new-session -c $LauncherWorkspace -ds $sessionName 'npm run build:dev && npm run app:debug '
+

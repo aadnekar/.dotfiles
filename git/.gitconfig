@@ -5,6 +5,7 @@
 	email = aadne.karstad@gmail.com
 [core]
     editor = vim
+    excludesFile = ~/.gitignore
 [init]
 	defaultbranch = "main"
 [commit]
