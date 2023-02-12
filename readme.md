@@ -1,16 +1,10 @@
 ## Motivation
 
-I want to be able to synchronize configurations between multiple workstations.
-With stow and this repo, I may do so.
+I want to easily synchronize configurations between multiple workstations.
 
-usage:
+## Usage
 
 ```bash
-stow <config_repo>
-
-# e.g.
-stow nvim
+# Make sure the `run-stow` script is executable
+./run-stow
 ```
-
-Which will create a symlink to the file/s inside `./nvim` directory.
-
