@@ -1,12 +1,23 @@
 #!/usr/bin/env zsh
 
-# export STOW_FOLDERS="nvim"
+if [[ ! -z $(git status -s) ]]; then
+    echo "Please do something ..."
+    exit 1
+fi
 
-# for folder in $(echo &STOW_FOLDERS | sed "s/,/ /g")
-# do
-    echo "stow nvim"
-    stow -D nvim
-    stow nvim
-# done
+git pull
 
+folders=(
+    git
+    local
+    nvim
+    tmux
+    zsh
+)
+
+for folder in "${folders[@]}"; do
+    echo "Stow process on target dir: ${folder}"
+    stow -D $folder
+    stow -S $folder
+done
 

@@ -14,3 +14,6 @@
 	default = current
 [pull]
 	rebase = true
+[init]
+    defaultbranch = main
+
