@@ -1,6 +1,6 @@
 lang en_US.utf8
 set scrolloff=20
-set relativenumber
+set nu rnu
 
 set tabstop=4
 set shiftwidth=4
@@ -8,6 +8,7 @@ set softtabstop=4
 set expandtab
 set smartindent
 
+set encoding=UTF-8
 
 """ Debug mode
 let g:vimspector_base_dir=expand( '$HOME/.vim/vimspector-config' )
@@ -44,13 +45,15 @@ Plug 'pangloss/vim-javascript'    " JavaScript support
 Plug 'leafgarland/typescript-vim' " TypeScript syntax
 Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
 
+""" I need emoji's of course 🤓
+Plug 'ryanoasis/vim-devicons'
 
 " Debugging
 Plug 'puremourning/vimspector'
 
 call plug#end()
 
-"set guifont=*
+set guifont=*
 set termguicolors     " enable true colors support
 syntax enable
 "let ayucolor="dark"   " for dark version of theme
@@ -63,7 +66,7 @@ colorscheme gruvbox
 let mapleader = " "
 
 """ Source the init.vim file to get latest changes
-nnoremap <leader><cr> :so ~/.config/nvim/init.vim<cr>
+nnoremap <leader><cr> :so $MYVIMRC<cr>
 
 """ New tmux session, with name of folder.
 nnoremap <silent> <C-f> :silent !tmux neww tmux-sessionizer<cr>
@@ -73,6 +76,7 @@ nnoremap <leader>pv :Vex<cr>
 
 """ Fuzzy find files for fz
 nnoremap <C-p> :GFiles<cr>
+nnoremap <leader>pp :Buffers<cr>
 nnoremap <C-a-p> :Files<cr>
 nnoremap <leader>pf :Files<cr>
 
@@ -103,6 +107,10 @@ inoremap <C-s> <esc>:w<cr>
 """ Trigger formatting
 nnoremap <leader>P :Prettier<cr>
 " NeoFormat
+let g:prettier#autoformat_config_present = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#exec_cmd_async = 1
+let g:neoformat_try_node_exe = 1
 let g:neoformat_enabled_typescript = ['prettier']
 
 """ CoC TS JS specific
