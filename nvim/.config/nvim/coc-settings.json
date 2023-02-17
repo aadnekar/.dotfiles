@@ -1,4 +1,18 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "js", "ts", "tsx", "jsx"]
+    "coc.preferences.formatOnSaveFiletypes": [
+        "css",
+        "markdown",
+        "js",
+        "ts",
+        "tsx",
+        "jsx"
+    ],
+    "tsserver": {
+        "log": "verbose",
+        "trace.server": "verbose"
+    },
+    "eslint": {
+        "alwaysShowStatus": true,
+        "autoFixOnSave": true
+    }
 }
-

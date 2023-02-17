@@ -20,6 +20,7 @@ export LauncherWorkspace="$HOME/code/pc-nrfconnect-launcher"
 
 ##### ADD CUSTOM ALIASES HERE #####
 alias bd="npm run build:dev"
+alias bdw="npm run watch:build"
 alias tw="npm t -- --watch"
 alias run="npm run app --prefix $LauncherWorkspace"
 alias gp="git pull"
