@@ -14,6 +14,7 @@ export PATH=$PATH:$HOME/gn
 export PATH=$PATH:~/.local/bin
 
 export LauncherWorkspace="$HOME/code/pc-nrfconnect-launcher"
+export SharedWorkspace="$HOME/code/pc-nrfconnect-shared"
 
 # Adds fuzzy findiner tool fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -25,6 +26,8 @@ alias tw="npm t -- --watch"
 alias run="npm run app --prefix $LauncherWorkspace"
 alias gp="git pull"
 alias gs="git status"
+
+alias ishared="(cd $SharedWorkspace && npm pack) && pwd && npm i $SharedWorkspace/pc-nrfconnect-shared-10.0.0.tgz" 
 
 # Fuzzy find script to start new session in new folder
 bindkey -s ^f "tmux-sessionizer\n"
