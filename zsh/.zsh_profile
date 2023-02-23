@@ -20,6 +20,8 @@ export SharedWorkspace="$HOME/code/pc-nrfconnect-shared"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ##### ADD CUSTOM ALIASES HERE #####
+alias vim=nvim
+#
 alias bd="npm run build:dev"
 alias bdw="npm run watch:build"
 alias tw="npm t -- --watch"
