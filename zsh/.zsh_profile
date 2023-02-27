@@ -34,3 +34,5 @@ alias ishared="(cd $SharedWorkspace && npm pack) && pwd && npm i $SharedWorkspac
 # Fuzzy find script to start new session in new folder
 bindkey -s ^f "tmux-sessionizer\n"
 
+export LANG=
+

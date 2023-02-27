@@ -1,11 +1,24 @@
-local lsp = require("lsp-zero")
-
-lsp.preset("recommended")
+local lsp = require('lsp-zero').preset({
+  suggest_lsp_servers = true,
+  setup_servers_on_start = true,
+  set_lsp_keymaps = true,
+  configure_diagnostics = true,
+  cmp_capabilities = true,
+  manage_nvim_cmp = true,
+  call_servers = 'local',
+  sign_icons = {
+    error = '✘',
+    warn = '▲',
+    hint = '⚑',
+    info = ''
+  }
+})
 
 lsp.ensure_installed({
   'tsserver',
   'rust_analyzer',
   'eslint',
+  'gopls',
 })
 
 -- Fix Undefined global 'vim'
@@ -19,6 +32,21 @@ lsp.configure('lua-language-server', {
     }
 })
 
+lsp.configure('eslint', {
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+  settings = {
+      codeActionOnSave = {
+          enable = false,
+          mode = "all"
+      },
+      format = true,
+  }
+})
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}

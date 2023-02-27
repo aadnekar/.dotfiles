@@ -4,7 +4,7 @@
 	name = aadnekar
 	email = aadne.karstad@gmail.com
 [core]
-    editor = vim
+    editor = nvim
     excludesFile = ~/.gitignore
 [init]
 	defaultbranch = "main"

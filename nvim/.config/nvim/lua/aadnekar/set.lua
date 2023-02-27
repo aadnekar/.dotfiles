@@ -28,4 +28,12 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+-- Spell checking
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"
+
+
+vim.o.background = "dark" -- or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
+
 vim.g.mapleader = " "
