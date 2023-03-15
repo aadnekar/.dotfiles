@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+selected_session=$(tmux ls -F "#{session_name}" | fzf)
+
+if [[ -z $selected_session ]]; then
+    exit 0
+fi
+
+#current_session=$(tmux display-message -p "#S")
+#number_of_sessions=$(tmux ls | wc -l)
+#if [[ number_of_sessions > 1 && current_session == selected_session ]]; then
+#    tmux 
+#fi
+
+tmux kill-session -t $selected_session
+./tmux-session-lister
+

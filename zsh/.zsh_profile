@@ -1,3 +1,5 @@
+export LANG=en_US.UTF-8
+
 source "${HOME}/.cargo/env"
 export PATH=$PATH:/usr/local/go/bin
 
@@ -33,6 +35,4 @@ alias ishared="(cd $SharedWorkspace && npm pack) && pwd && npm i $SharedWorkspac
 
 # Fuzzy find script to start new session in new folder
 bindkey -s ^f "tmux-sessionizer\n"
-
-export LANG=
-
+bindkey -s "^[" "tmux-session-cleaner\n"
