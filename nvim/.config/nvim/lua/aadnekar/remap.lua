@@ -38,3 +38,6 @@ vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+-- Development explicit keybindings
+vim.keymap.set("n", "<leader>is", "oimport { } from 'pc-nrfconnect-shared';<C-c>F{a");

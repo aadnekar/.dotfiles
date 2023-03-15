@@ -33,7 +33,7 @@ vim.opt.spell = true
 vim.opt.spelllang = "en_us"
 
 
-vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
+vim.o.background = ""
+vim.cmd("colorscheme kanagawa-wave")
 
 vim.g.mapleader = " "

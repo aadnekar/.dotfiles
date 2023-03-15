@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+selected_session=$(tmux ls -F "#{session_name}" | fzf)
+
+if [[ -z $selected_session ]]; then
+    exit 0
+fi
+
+tmux kill-session -t $selected_session
+./tmux-session-lister
+
