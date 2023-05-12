@@ -1,4 +1,5 @@
 export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 source "${HOME}/.cargo/env"
 export PATH=$PATH:/usr/local/go/bin
@@ -17,6 +18,9 @@ export PATH=$PATH:~/.local/bin
 
 export LauncherWorkspace="$HOME/code/pc-nrfconnect-launcher"
 export SharedWorkspace="$HOME/code/pc-nrfconnect-shared"
+
+# Export config path for use by clangd
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # Adds fuzzy findiner tool fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
