@@ -1,6 +1,8 @@
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
+export PATH=$PATH:/$HOME/bin
+
 source "${HOME}/.cargo/env"
 export PATH=$PATH:/usr/local/go/bin
 
@@ -32,10 +34,9 @@ alias bd="npm run build:dev"
 alias bdw="npm run watch:build"
 alias tw="npm t -- --watch"
 alias run="npm run app --prefix $LauncherWorkspace"
+alias run2="DISABLE_APP_RELOADING=1 npm run app --prefix $LauncherWorkspace"
 alias gp="git pull"
 alias gs="git status"
-
-alias ishared="(cd $SharedWorkspace && npm pack) && pwd && npm i $SharedWorkspace/pc-nrfconnect-shared-10.0.0.tgz" 
 
 # Fuzzy find script to start new session in new folder
 bindkey -s ^f "tmux-sessionizer\n"

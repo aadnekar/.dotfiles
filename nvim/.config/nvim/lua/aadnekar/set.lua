@@ -34,6 +34,6 @@ vim.opt.spelllang = "en_us"
 
 
 vim.o.background = ""
-vim.cmd("colorscheme kanagawa-wave")
+vim.cmd("colorscheme tokyonight")
 
 vim.g.mapleader = " "

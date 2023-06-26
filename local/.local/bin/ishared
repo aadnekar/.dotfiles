@@ -1,0 +1,14 @@
+#!/bin/bash
+
+current_directory=$(pwd)
+echo $current_directory
+
+cd $SharedWorkspace
+npm run generate-types
+filename=$(npm pack)
+
+echo "Generated: "
+echo $filename
+
+cd $current_directory
+npm i $SharedWorkspace/$filename

@@ -16,10 +16,12 @@ local lsp = require('lsp-zero').preset({
 
 lsp.ensure_installed({
   'tsserver',
-  'rust_analyzer',
   'eslint',
+
   'gopls',
   'clangd',
+
+  'rust_analyzer',
 })
 
 -- Fix Undefined global 'vim'
