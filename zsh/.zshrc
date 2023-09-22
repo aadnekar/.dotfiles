@@ -3,7 +3,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="robbyrussell"
 
-plugins=(git)
+plugins=(git emoji)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh_profile
@@ -15,3 +15,6 @@ source $HOME/.zsh_profile
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun completions
+[ -s "/home/adka/.bun/_bun" ] && source "/home/adka/.bun/_bun"

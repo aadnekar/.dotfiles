@@ -17,6 +17,7 @@ local lsp = require('lsp-zero').preset({
 lsp.ensure_installed({
   'tsserver',
   'eslint',
+  'tailwindcss',
 
   'gopls',
   'clangd',
@@ -44,10 +45,10 @@ lsp.configure('eslint', {
   end,
   settings = {
       codeActionOnSave = {
-          enable = false,
+          enable = true,
           mode = "all"
       },
-      format = true,
+      format = false,
   }
 })
 

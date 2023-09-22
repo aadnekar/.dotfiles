@@ -29,14 +29,18 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 ##### ADD CUSTOM ALIASES HERE #####
 alias vim=nvim
-#
+
+
 alias bd="npm run build:dev"
 alias bdw="npm run watch:build"
 alias tw="npm t -- --watch"
 alias run="npm run app --prefix $LauncherWorkspace"
 alias run2="DISABLE_APP_RELOADING=1 npm run app --prefix $LauncherWorkspace"
+
+# GIT
 alias gp="git pull"
 alias gs="git status"
+alias g-="git switch -" # as in git switch back
 
 # Fuzzy find script to start new session in new folder
 bindkey -s ^f "tmux-sessionizer\n"
