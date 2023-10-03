@@ -1,0 +1,31 @@
+#!/bin/bash
+
+target_location="$HOME/.nrfconnect-apps/local"
+
+declare -a repos=(
+                    "git@github.com:NordicSemiconductor/pc-nrfconnect-shared.git"
+                    "git@github.com:NordicSemiconductor/pc-nrfconnect-launcher.git"
+                    "git@github.com:NordicSemiconductor/pc-nrfconnect-cellularmonitor.git"
+                    "git@github.com:NordicSemiconductor/pc-nrfconnect-ppk.git"
+                    "git@github.com:NordicSemiconductor/pc-nrfconnect-programmer.git"
+                )
+
+if [ ! -d "$target_location" ]
+then
+    echo "$target_location does NOT exist ==> will create"
+    mkdir --parent "$target_location"
+fi
+
+for URL in "${repos[@]}"
+do
+    repo_dirname=$(echo "$URL" | cut -d / -f 2 | cut -d . -f 1)
+    echo "Must check if $repo_dirname exists"
+    if [ ! -d "$target_location/$repo_dirname" ]
+    then
+        echo "$repo_dirname does not exist"
+        echo "Cloning repository: $URL"
+        git clone "$URL" "$target_location/$repo_dirname"
+    else
+        echo "$repo_dirname already exists!"
+    fi
+done

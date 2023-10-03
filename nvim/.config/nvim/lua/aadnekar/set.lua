@@ -33,7 +33,7 @@ vim.opt.spell = true
 vim.opt.spelllang = "en_us"
 
 
-vim.o.background = ""
-vim.cmd("colorscheme tokyonight")
+-- vim.o.background = ""
+-- vim.cmd("colorscheme tokyonight")
 
 vim.g.mapleader = " "

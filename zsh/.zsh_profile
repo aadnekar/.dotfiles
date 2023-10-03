@@ -38,6 +38,10 @@ alias run2="DISABLE_APP_RELOADING=1 npm run app --prefix $LauncherWorkspace"
 alias gp="git pull"
 alias gs="git status"
 
+alias py="python3.11"
+alias python="py"
+alias pip="pip3"
+
 # Fuzzy find script to start new session in new folder
 bindkey -s ^f "tmux-sessionizer\n"
 bindkey -s "^[" "tmux-session-cleaner\n"
