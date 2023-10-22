@@ -1,7 +1,9 @@
 #!/bin/bash
 
+echo "Shared Workspace = $SharedWorkspace"
+
 current_directory=$(pwd)
-echo $current_directory
+echo "Current Directory = $current_directory"
 
 cd $SharedWorkspace
 npm run generate-types
