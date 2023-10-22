@@ -1,27 +1,36 @@
 return {
-  {'williamboman/mason.nvim'},
-  {'williamboman/mason-lspconfig.nvim'},
   -- LSP Support
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
-    lazy = true,
-    config = false,
-  },
-  {
     'neovim/nvim-lspconfig',
-    dependencies = {
-      {'hrsh7th/cmp-nvim-lsp'},
-    }
+    config = function()
+        local lspConfig = require'lspconfig'
+        lspConfig.tsserver.setup{}
+        lspConfig.tailwindcss.setup{}
+        lspConfig.lua_ls.setup{
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = {
+                            'vim',
+                            'require'
+                        },
+                    },
+                    workspace = {
+                        library = vim.api.nvim_get_runtime_file("", true),
+                    }
+                }
+            }
+        }
+
+        vim.api.nvim_create_autocmd('LspAttach', {
+            callback = function(args)
+                vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = args.buf })
+            end,
+        })
+    end
   },
-  -- Autocompletion
   {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      {'L3MON4D3/LuaSnip'}
-    },
+      'typescript-language-server/typescript-language-server',
   },
-  {'jose-elias-alvarez/null-ls.nvim'},
-  {'MunifTanjim/prettier.nvim'},
 }
 
