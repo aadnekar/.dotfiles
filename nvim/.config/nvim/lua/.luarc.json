@@ -1,0 +1,13 @@
+{
+    "workspace.library": [
+        "/home/adka/.config/nvim",
+        "/home/adka/.local/share/nvim/lazy/lazy.nvim",
+        "/home/adka/.local/share/nvim/lazy/nvim-lspconfig",
+        "/home/adka/.local/share/nvim/lazy/tokyonight.nvim",
+        "/home/adka/.local/share/nvim/lazy/gruvbox.nvim",
+        "/home/adka/src/nvim/share/nvim/runtime",
+        "/home/adka/src/nvim/lib/nvim",
+        "/home/adka/.local/state/nvim/lazy/readme",
+        "${3rd}/luassert/library"
+    ]
+}
