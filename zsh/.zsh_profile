@@ -18,6 +18,7 @@ export PATH="$DENO_INSTALL:$HOME_BIN:$PATH"
 export PATH=$PATH:$HOME/gn
 export PATH=$PATH:~/.local/bin
 
+export nrfConnectWorkspace="$HOME/.nrfconnect-apps/local"
 export LauncherWorkspace="$HOME/code/pc-nrfconnect-launcher"
 export SharedWorkspace="$HOME/code/pc-nrfconnect-shared"
 

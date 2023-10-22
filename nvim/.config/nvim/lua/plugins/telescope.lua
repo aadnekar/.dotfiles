@@ -11,6 +11,7 @@ return {
       keys = {
         { "<leader>pf", "<cmd>Telescope find_files<CR>"},
         { "<C-p>", "<cmd>Telescope git_files<CR>"},
+        { "<leader>ps", "<cmd>Telescope live_grep<CR>"},
       }
     }
 
