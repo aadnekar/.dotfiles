@@ -1,7 +1,8 @@
 return {
     -- add gruvbox
-    { "ellisonleao/gruvbox.nvim" },
+    -- { "ellisonleao/gruvbox.nvim" },
     { "folke/tokyonight.nvim" },
+    { 'gruvbox-community/gruvbox' },
   
     -- Configure LazyVim to load gruvbox
     -- {

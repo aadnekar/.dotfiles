@@ -25,8 +25,6 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "80"
-
 -- Spell checking
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
@@ -34,6 +32,6 @@ vim.opt.spelllang = "en_us"
 
 -- vim.o.background = ""
 vim.opt.termguicolors = true
-vim.cmd("colorscheme tokyonight")
+vim.cmd("colorscheme gruvbox")
 
 vim.g.mapleader = " "
