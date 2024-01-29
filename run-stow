@@ -10,7 +10,7 @@ git pull
 folders=(
     git
     local
-    nvim
+    # nvim
     tmux
     zsh
 )
