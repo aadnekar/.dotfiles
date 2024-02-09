@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~ ~/work ~/code ~/.nrfconnect-apps/local -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~ ~/@neat ~/work ~/code ~/.nrfconnect-apps/local -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then
@@ -14,14 +14,31 @@ selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected -n "Vim"
-    tmux new-window -dn "Node" -t $selected_name: -c $selected
+    # Setup first pane called VIM
+    tmux new-session -s $selected_name -c $selected -n "VIM"
+    if [ -d "$selected/env" ]; then
+        tmux send-keys -t "$selected_name:1" "source ./env/bin/activate" C-m
+    fi
+
+    # Setup second pane called TERM
+    tmux new-window -dn "TERM" -t $selected_name: -c $selected
+    if [ -d "$selected/env" ]; then
+        tmux send-keys -t "$selected_name:2" "source ./env/bin/activate" C-m
+    fi
     exit 0
 fi
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
     tmux new-session -ds $selected_name -c $selected -n "Vim"
-    tmux new-window -dn "Node" -t $selected_name: -c $selected
+    if [ -d "$selected/env" ]; then
+        tmux send-keys -t "$selected_name:1" "source ./env/bin/activate" C-m
+    else
+        echo "DOES NOT EXIST"
+    fi
+    tmux new-window -dn "Term" -t $selected_name: -c $selected
+    if [ -d "$selected/env" ]; then
+        tmux send-keys -t "$selected_name:2" "source ./env/bin/activate" C-m
+    fi
 fi
 
 tmux switch-client -t $selected_name

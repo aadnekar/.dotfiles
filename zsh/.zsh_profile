@@ -1,3 +1,6 @@
+HISTSIZE=100000
+SAVEHIST=100000
+
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
@@ -24,6 +27,13 @@ export SharedWorkspace="$HOME/code/pc-nrfconnect-shared"
 # Export config path for use by clangd
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# Export installed libraries for Lua
+export PATH="$HOME/.luarocks/bin/:$PATH"
+
+# Export upgrade_tool@neat
+export PATH="$HOME/@neat/Linux_Upgrade_Tool_v1.38/upgrade_tool/:$PATH"
+export PATH="$HOME/Android/Sdk/platform-tools/:$PATH"
+
 # Adds fuzzy findiner tool fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -45,3 +55,6 @@ alias g-="git switch -" # as in git switch back
 # Fuzzy find script to start new session in new folder
 bindkey -s ^f "tmux-sessionizer\n"
 bindkey -s "^[" "tmux-session-cleaner\n"
+
+# PYTHON
+alias py="python3"
