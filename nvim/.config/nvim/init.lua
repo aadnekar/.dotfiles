@@ -1,46 +1,4 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, understand
-  what your configuration is doing, and modify it to suit your needs.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-
-  And then you can explore or search through `:help lua-guide`
-  - https://neovim.io/doc/user/lua-guide.html
-
-
-Kickstart Guide:
-
-I have left several `:help X` comments throughout the init.lua
-You should run that command and read that help section for more information.
-
-In addition, I have some `NOTE:` items throughout the file.
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now :)
---]]
-
--- Set <space> as the leader key
 -- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -72,9 +30,21 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
+  'junegunn/rainbow_parentheses.vim',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+
+  {
+      "kylechui/nvim-surround",
+      version = "*", -- Use for stability; omit to use `main` branch for the latest features
+      event = "VeryLazy",
+      config = function()
+          require("nvim-surround").setup({
+              -- Configuration here, or leave empty to use defaults
+          })
+      end
+  },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -103,12 +73,6 @@ require('lazy').setup({
       {
         'L3MON4D3/LuaSnip',
         build = (function()
-          -- Build Step is needed for regex support in snippets
-          -- This step is not supported in many windows environments
-          -- Remove the below condition to re-enable on windows
-          if vim.fn.has 'win32' == 1 then
-            return
-          end
           return 'make install_jsregexp'
         end)(),
       },
@@ -208,7 +172,7 @@ require('lazy').setup({
     config = function()
       require('onedark').setup {
         -- Set a style preset. 'dark' is default.
-        style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
+        style = 'deep', -- dark, darker, cool, deep, warm, warmer, light
       }
       require('onedark').load()
     end,
@@ -217,10 +181,13 @@ require('lazy').setup({
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
+        icons_enabled = true,
         theme = 'auto',
         component_separators = '|',
         section_separators = '',
@@ -262,6 +229,16 @@ require('lazy').setup({
   },
 
   {
+    'ThePrimeagen/harpoon',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    -- keys = {
+        -- {'<leader>gh', require("harpoon").toggle_quick_menu(), desc='Toggle Harpoon Quick Menu'},
+    -- },
+  },
+
+  {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
@@ -270,6 +247,37 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {}
+  },
+
+  'norcalli/nvim-colorizer.lua',
+  {
+    'simrat39/rust-tools.nvim',
+    config = function()
+      local rt = require("rust-tools")
+
+      rt.setup({
+        server = {
+          on_attach = function(_, bufnr)
+            -- Hover actions
+            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+            -- Code action groups
+            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+          end,
+        }
+      })
+    end,
+  },
+
+  {
+    'prettier/vim-prettier',
+    build = function()
+      return 'yarn install --frozen-lockfile --production'
+    end
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -285,18 +293,15 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
 }, {})
 
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
-
 require('aadneka.keys')
+require('aadneka.config')
 
 -- Set highlight on search
 vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.relativenumber = true
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 16
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -311,7 +316,7 @@ vim.o.breakindent = true
 -- Save undo history
 vim.o.undofile = true
 
--- Case-insensitive searching UNLESS \C or capital in search
+-- Case-insepnsitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
@@ -343,6 +348,7 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -424,6 +430,7 @@ local function telescope_live_grep_open_files()
     prompt_title = 'Live Grep in Open Files',
   }
 end
+
 vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]earch [/] in Open Files' })
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
@@ -441,7 +448,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'css', 'html', 'graphql', },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -509,15 +516,105 @@ vim.defer_fn(function()
   }
 end, 0)
 
+-- vim.api.nvim_create_user_command('LoadInitLua', function()
+--   vim.api.nvim_cmd({'source', '%'}, {})
+-- end, {})
+--
+local function python_lint(bufnr)
+  local filename = vim.api.nvim_buf_get_name(bufnr)
+  local sort_cmd = "flake8 '" .. filename .. "'"
+
+  local cmd_handle = io.popen(sort_cmd)
+  if cmd_handle == nil then
+    return
+  end
+
+  local lines = {}
+  for line in cmd_handle:lines() do
+    table.insert(lines, line)
+  end
+  cmd_handle:close()
+
+  vim.cmd('vnew ')
+  -- local win = vim.api.nvim_get_current_win()
+  -- print('window: ', win)
+  -- local buf = vim.api.nvim_create_buf(true, true)
+  -- print('buffer: ', buf)
+  -- vim.api.nvim_win_set_buf(win, buf)
+  local buf = vim.api.nvim_get_current_buf()
+  -- Would like to make the register unmodifiable,
+  -- and ultimately be able to just click 'q' to close the pane.
+  -- vim.api.nvim_buf_set_option(buf, 'PythonLint', )
+  print('buf:  ', buf)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+end
+
+local function sort_python_imports(bufnr)
+  local filename = vim.api.nvim_buf_get_name(bufnr)
+  local sort_cmd = "cat '" .. filename .. "' | isort -"
+
+  local cmd_handle = io.popen(sort_cmd)
+  if cmd_handle == nil then
+    return
+  end
+
+  local lines = {}
+  for line in cmd_handle:lines() do
+    table.insert(lines, line)
+  end
+  cmd_handle:close()
+
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+  vim.api.nvim_command('w')
+end
+
+local function rust_format(bufnr)
+  local filename = vim.api.nvim_buf_get_name(bufnr)
+  local fmt_cmd = "cargo fmt" .. filename
+
+  local cmd_handle = io.popen(fmt_cmd)
+  if cmd_handle == nil then
+    return
+  end
+
+  local lines = {}
+  for line in cmd_handle:lines() do
+    table.insert(lines, line)
+  end
+  cmd_handle:close()
+
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+  vim.api.nvim_command('w')
+end
+
+
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
+-- NOTE: Remember that lua is a real programming language, and as such it is possible
+-- to define small helper and utility functions so you don't have to repeat yourself
+-- many times.
+--
+-- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
+
+  vim.api.nvim_buf_create_user_command(bufnr, 'PythonSortImports', function ()
+    sort_python_imports(bufnr)
+  end, {})
+
+  vim.api.nvim_buf_create_user_command(bufnr, 'PythonLint', function ()
+    python_lint(bufnr)
+  end, {})
+
+  vim.api.nvim_create_autocmd({'BufEnter'}, {
+    pattern = { ".rs" },
+    callback = function()
+      vim.api.nvim_buf_create_user_command(bufnr, 'FormatRust', function ()
+        rust_format(bufnr)
+      end, {})
+    end
+  })
+
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -540,6 +637,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
@@ -549,6 +647,10 @@ local on_attach = function(_, bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
+
+  vim.keymap.set('n', '<leader>Ps', function ()
+    sort_python_imports(bufnr)
+  end, { desc ='[P]ython [S]ort Imports' })
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -562,6 +664,7 @@ require('which-key').register {
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
   ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+  ['<leader>P'] = { name = 'Python', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
@@ -588,11 +691,11 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
+  pyright = {},
+  tsserver = {},
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
