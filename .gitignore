@@ -1,1 +1,9 @@
 nvim/.config/nvim/plugin/packer_compiled.lua
+
+local/
+!local/.local/bin/å-debugger
+!local/.local/bin/install-shared
+!local/.local/bin/ishared
+!local/.local/bin/pretty-time
+!local/.local/bin/tmux-cht.sh
+!local/.local/bin/tmux-sessionizer

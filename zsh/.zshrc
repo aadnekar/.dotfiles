@@ -7,6 +7,7 @@ plugins=(git docker docker-compose emoji nvm)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zsh_profile
+source $HOME/.zsh_private
 
 
 # bun completions
